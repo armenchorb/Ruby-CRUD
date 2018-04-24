@@ -1,0 +1,42 @@
+<h1>Hi <%= @user.first_name %></h1>
+<br> 
+<br>
+<h3>Here are the organizations you may join:</h3>
+<div class='groups'>
+<% @groups.each do |g| %>
+<a href="/groups/<%= g.id %>"><%= g.name %></a><br><br>
+Members: <%= g.joins.count %>
+<br>
+<br>
+<%= g.description %><br><br>
+        <% if current_user.id == g.user.id %>
+    <form action='/groups' method='POST'>
+    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+    <input type='hidden' name='_method' value='delete'>
+    <input type='submit' style='background-color:red' value='Delete'>
+    </form>
+        <% end %>
+<% end %>
+</div>
+
+<div class='create'>
+<% if flash[:messages] %>
+    <% flash[:messages].each do |m| %>
+        <p> <%= m %> </p>
+    <% end %>
+<% end %>
+<form action='/groups' method='post'>
+<input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+Create a new Organization:
+<br>
+<br>
+Org Name: <input type='text' name='name'>
+<br>
+<br>
+Description: 
+<br>
+<textarea rows='5' cols='50' name='description'></textarea>
+<br>
+<input type='submit' value='Create'>
+</form>
+</div>

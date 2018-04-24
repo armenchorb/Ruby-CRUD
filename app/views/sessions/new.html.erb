@@ -1,0 +1,40 @@
+
+<% if flash[:messages] %>
+    <% flash[:messages].each do |m| %>
+        <p> <%= m %> </p>
+    <% end %>
+<% end %>
+
+<div class='register'>
+<h3>Register</h3>
+<br>
+<form action='/users' method='post'>
+<input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+First Name: <input type='text' name='first_name'>
+<br>
+<br>
+Last Name <input type='text' name='last_name'>
+<br>
+<br>
+Email: <input type='text' name='email'>
+<br>
+<br>
+Password: <input type='password' name='password'>
+<input type='submit' value='Register'>
+</form>
+</div>
+
+<div class='login'>
+<h3>Login</h3>
+<br>
+<form action='/sessions' method='post'>
+<input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+Email: <input type='text' name='email'>
+<br>
+<br>
+Password: <input type='password' name='password'>
+<br>
+<br>
+<input type='submit' value='Login'>
+</form>
+</div>

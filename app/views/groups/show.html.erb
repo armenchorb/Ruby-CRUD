@@ -1,0 +1,29 @@
+<h1><%= @group.name %></h1>
+
+<% if @group.joins.where(user:current_user).any? %>
+
+<form action='' method='POST'>
+    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+    <input type='hidden' name='_method' value='delete'>
+    <input type='submit' style='background-color:red' value='Leave Group'>
+    </form>
+        <% else %>
+<div class='join'>
+<form action='/groups/<%= @group.id %>' method='post'>
+<input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+<input type='submit' value='Join Group'>
+</form>
+</div>
+<% end %>
+
+<h3><%= @group.description %></h3>
+<br>
+<br>
+<br>
+<h4>Created by:</h4> <%= @group.user.first_name %>
+<br>
+<br>
+<h4>Members:</h4>
+<% @joins.each do |join|%>
+<p><%= join.user.first_name %><%= join.user.last_name %></p>
+<% end %>
